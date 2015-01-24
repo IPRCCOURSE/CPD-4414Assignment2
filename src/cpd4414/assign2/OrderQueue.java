@@ -27,9 +27,8 @@ import java.util.Queue;
 public class OrderQueue {
     Queue<Order> orderQueue = new ArrayDeque<>();
     
-    public void add(Order order) throws Exception{
-        if (order.getCustomerId() == null) throw new Exception("customer id dose not exists");
-        if (order.getCustomerName() == null) throw new Exception("customer id dose not exists");
+    public void add(Order order){
+       
         
         orderQueue.add(order);
         order.setTimeReceived(new Date());

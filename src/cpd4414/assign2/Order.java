@@ -33,7 +33,10 @@ public class Order {
     private List<Purchase> listOfPurchases = new ArrayList<>();
     private String notes;
     
-    public Order(String customerId, String customerName) {
+    public Order(String customerId, String customerName) throws Exception{
+        
+         if (customerId == null) throw new Exception("customer id dose not exists");
+        if (customerName == null) throw new Exception("customer name dose not exists");
         this.customerId = customerId;
         this.customerName = customerName;
     }
