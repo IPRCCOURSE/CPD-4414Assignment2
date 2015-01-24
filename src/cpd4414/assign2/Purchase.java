@@ -18,7 +18,7 @@ package cpd4414.assign2;
 
 /**
  *
- * @author Len Payne <len.payne@lambtoncollege.ca>
+ * @author Hongliang Zhang <c0640045@mylambton.ca>
  */
 public class Purchase {
     private String productId;

@@ -20,7 +20,7 @@ import java.sql.*;
 /**
  * This class is a wrapper around the Inventory table.
  *
- * @author Len Payne <len.payne@lambtoncollege.ca>
+ * @author Hongliang Zhang <c0640045@mylambton.ca>
  */
 public class Inventory {
 
