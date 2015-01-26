@@ -65,4 +65,30 @@ public class OrderQueue {
         return o; 
         
     }
+    
+    
+    public String getReport()
+    {
+        String strJson = "{ “orders” : [";
+        Order order = orderQueue.poll();
+        
+        while(order != null)
+            {
+               
+               strJson += (JsonHelper.toJSON(order).toString() + ",");
+                
+                
+               order = orderQueue.poll();
+            }
+            
+        if (strJson.endsWith(",")) strJson = strJson.substring(0, strJson.length()-1);
+        
+        strJson +=  "] }";
+        
+        
+        
+        
+      return strJson;
+        
+    }
 }

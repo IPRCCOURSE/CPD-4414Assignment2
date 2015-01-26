@@ -350,5 +350,49 @@ public class OrderQueueTest {
       
     }
     
+     @Test
+    public void testOrdersForReportToJsons() {
+           
+       OrderQueue orderQueue = new OrderQueue();
+       
+       
+       
+        try{
+        Order order = new Order("CUST00001", "ABC Construction");
+        order.addPurchase(new Purchase("0004", 450));
+        order.addPurchase(new Purchase("0006", 250));
+           
+        orderQueue.add(order);
+        order.processit();
+        order.fulfillit();
+        
+       
+        Order order2 = new Order("CUST00002", "DEF Construction");
+        order2.addPurchase(new Purchase("PROD0104", 450));
+        order2.addPurchase(new Purchase("PROD0306", 250));
+        
+        orderQueue.add(order2);
+        
+        order2.processit();
+        order2.fulfillit();
+        
+        
+        String expectResult = "{ “orders” : [" + JsonHelper.toJSON(order).toString() + "," + JsonHelper.toJSON(order2).toString() + "] }";
+        
+        assertTrue(expectResult.equals(orderQueue.getReport()));
+        
+        
+        
+      }catch (Exception e)
+      {
+          e.printStackTrace();
+          assertTrue(false);
+          
+          
+      }
+       
+      
+    }
+    
 
 }
