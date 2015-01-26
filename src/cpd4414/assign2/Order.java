@@ -101,5 +101,55 @@ public class Order {
         this.notes = notes;
     }
     
+    public void processit() throws Exception
+    {
+       if (timeReceived== null) throw new Exception("no received time");
+       
+       for(Purchase p: listOfPurchases)
+       {
+           if (Inventory.getQuantityForId(Integer.parseInt(p.getProductId())) == -1)
+             throw new Exception("purchase not exists!");   
+           
+            
+           
+           
+       }
+       
+       
+       
+       
+       
+       setTimeProcessed(new Date());
+        
+        
+        
+        
+    }
+    
+    public void fulfillit() throws Exception
+    {
+       if (timeReceived== null) throw new Exception("no received time");
+       if (timeProcessed== null) throw new Exception("no processed time");
+       for(Purchase p: listOfPurchases)
+       {
+           if (Inventory.getQuantityForId(Integer.parseInt(p.getProductId())) == -1)
+             throw new Exception("purchase not exists!");   
+           
+            
+           
+           
+       }
+       
+       
+       
+       
+       
+       setTimeFulfilled(new Date());
+        
+        
+        
+        
+    }
+    
     
 }

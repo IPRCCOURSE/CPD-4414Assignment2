@@ -27,10 +27,42 @@ import java.util.Queue;
 public class OrderQueue {
     Queue<Order> orderQueue = new ArrayDeque<>();
     
-    public void add(Order order){
+    public void add(Order order) throws Exception{
        
-        
+        if (order.getListOfPurchases().isEmpty()) throw new Exception("No puchurse list");
         orderQueue.add(order);
         order.setTimeReceived(new Date());
+    }
+    
+    public Order getEarlistUnProcessed(){
+        Order o = null;
+        if (!orderQueue.isEmpty())
+        {
+            Order order = orderQueue.poll();
+            while(order != null)
+            {
+               
+                if (order.getTimeProcessed() == null)
+                {
+                    o = order;
+                    break;
+                       
+                    
+                    
+                }
+                
+                
+               order = orderQueue.poll();
+            }
+            
+            
+            
+        }
+        
+        
+        
+        
+        return o; 
+        
     }
 }

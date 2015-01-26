@@ -118,5 +118,237 @@ public class OrderQueueTest {
            
         assertTrue(didThrown);
     }
+    
+    @Test
+    public void testWhenOrderwithoutPurchaselistsThenThrowException() {
+         OrderQueue orderQueue = new OrderQueue();
+        try{
+        Order order = new Order("CUST00001", "ABC Construction");
+      //  order.addPurchase(new Purchase("PROD0004", 450));
+     //   order.addPurchase(new Purchase("PROD0006", 250));
+       
+        boolean didThrown = false;
+        
+        try{
+          orderQueue.add(order);
+        }catch(Exception e)
+        {
+            didThrown = true;
+        }
+            
+        assertTrue(didThrown);
+       
+      }catch (Exception e)
+      {
+          assertTrue(false);
+          
+          
+      }
+    }
+    
+    @Test
+    public void testGetTheEearlistUnProcessedOrder() {
+         OrderQueue orderQueue = new OrderQueue();
+        try{
+        Order order = new Order("CUST00001", "ABC Construction");
+        order.addPurchase(new Purchase("PROD0004", 450));
+        order.addPurchase(new Purchase("PROD0006", 250));
+        orderQueue.add(order);
+        
+          Order order2 = new Order("CUST00002", "DEF Construction");
+        order2.addPurchase(new Purchase("PROD0104", 450));
+        order2.addPurchase(new Purchase("PROD0306", 250));
+        
+        orderQueue.add(order2);
+         
+      
+        assertTrue(orderQueue.getEarlistUnProcessed() == order);    
+       
+       
+      }catch (Exception e)
+      {
+          assertTrue(false);
+          
+          
+      }
+    }
+    
+    @Test
+    public void testGetTheEearlistUnProcessedOrderNull() {
+         OrderQueue orderQueue = new OrderQueue();
+       
+      
+        assertTrue(orderQueue.getEarlistUnProcessed() == null);    
+       
+       
+      
+    }
+    
+   
+    
+     @Test
+    public void testOrderProcessWithTimeReceivedWithInStock() {
+           
+       OrderQueue orderQueue = new OrderQueue();
+        try{
+        Order order = new Order("CUST00001", "ABC Construction");
+        order.addPurchase(new Purchase("0004", 450));
+        order.addPurchase(new Purchase("0006", 250));
+       
+       
+        orderQueue.add(order);
+       
+        order.processit();
+        
+        long expResult = new Date().getTime();
+        long result = order.getTimeProcessed().getTime();
+        assertTrue(Math.abs(result - expResult) < 1000);
+      }catch (Exception e)
+      {
+          e.printStackTrace();
+          assertTrue(false);
+          
+          
+      }
+       
+      
+    }
+    
+     @Test
+    public void testOrderProcessWithNoTimeReceived() {
+         
+        boolean didThrow = false;
+       OrderQueue orderQueue = new OrderQueue();
+        try{
+        Order order = new Order("CUST00001", "ABC Construction");
+        order.addPurchase(new Purchase("0004", 450));
+        order.addPurchase(new Purchase("0006", 250));
+       
+       
+        //orderQueue.add(order);
+      // order.setTimeReceived(null);
+       try{
+        order.processit();
+       }catch(Exception e)
+        {
+           didThrow = true;   
+           }
+        
+      assertTrue(didThrow);
+      }catch (Exception e)
+      {
+          e.printStackTrace();
+          assertTrue(false);
+          
+          
+      }
+       
+      
+    }
+
+   //fullfill a request......................
+     @Test
+    public void testOrderFulfilledWithTimeProcessedWithInStock() {
+           
+       OrderQueue orderQueue = new OrderQueue();
+        try{
+        Order order = new Order("CUST00001", "ABC Construction");
+        order.addPurchase(new Purchase("0004", 450));
+        order.addPurchase(new Purchase("0006", 250));
+       
+       
+        orderQueue.add(order);
+       
+        order.processit();
+        
+        order.fulfillit();
+        
+        long expResult = new Date().getTime();
+        long result = order.getTimeFulfilled().getTime();
+        assertTrue(Math.abs(result - expResult) < 1000);
+      }catch (Exception e)
+      {
+          e.printStackTrace();
+          assertTrue(false);
+          
+          
+      }
+       
+      
+    }
+    
+     @Test
+    public void testOrderFulfilledWithoutTimeProcessedThenThrowException() {
+           
+       OrderQueue orderQueue = new OrderQueue();
+       boolean didThrow = false;
+       
+       
+        try{
+        Order order = new Order("CUST00001", "ABC Construction");
+        order.addPurchase(new Purchase("0004", 450));
+        order.addPurchase(new Purchase("0006", 250));
+       
+       
+        orderQueue.add(order);
+       
+       
+        try{
+        order.fulfillit();
+        }catch(Exception e)
+        {
+            didThrow = true;
+        }
+        
+       
+        assertTrue(didThrow);
+      }catch (Exception e)
+      {
+          e.printStackTrace();
+          assertTrue(false);
+          
+          
+      }
+       
+      
+    }
+    
+    @Test
+    public void testOrderFulfilledWithoutTimeReceiveddThenThrowException() {
+           
+       OrderQueue orderQueue = new OrderQueue();
+       boolean didThrow = false;
+       
+       
+        try{
+        Order order = new Order("CUST00001", "ABC Construction");
+        order.addPurchase(new Purchase("0004", 450));
+        order.addPurchase(new Purchase("0006", 250));
+       
+       
+        orderQueue.add(order);
+        order.processit();
+        order.setTimeReceived(null);
+       
+        try{
+        order.fulfillit();
+        }catch(Exception e)
+        {
+            didThrow = true;
+        }
+        
+       
+        assertTrue(didThrow);
+      }catch (Exception e)
+      {
+          e.printStackTrace();
+          assertTrue(false);
+          
+          
+      }
+       
+      
+    }
+    
 
 }
