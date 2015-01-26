@@ -368,8 +368,8 @@ public class OrderQueueTest {
         
        
         Order order2 = new Order("CUST00002", "DEF Construction");
-        order2.addPurchase(new Purchase("PROD0104", 450));
-        order2.addPurchase(new Purchase("PROD0306", 250));
+        order2.addPurchase(new Purchase("0001", 450));
+        order2.addPurchase(new Purchase("0002", 250));
         
         orderQueue.add(order2);
         
