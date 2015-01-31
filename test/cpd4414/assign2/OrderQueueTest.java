@@ -379,6 +379,8 @@ public class OrderQueueTest {
         
         String expectResult = "{ “orders” : [" + JsonHelper.toJSON(order).toString() + "," + JsonHelper.toJSON(order2).toString() + "] }";
         
+        
+        System.out.println(expectResult);
         assertTrue(expectResult.equals(orderQueue.getReport()));
         
         
